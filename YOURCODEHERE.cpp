@@ -67,27 +67,27 @@ int ul2_latency_table(int size_kb, int ways) {
  * Returns 1 if valid, else 0.
  */
 int validateConfiguration(std::string configuration){
-    // Configuration parameters
+    // config params
     int config_width[4] = {1,2,4,8};
-    int config_fetch_speed[2] = {1,2,4};
+    int config_fetch_speed[2] = {1,2};
     std::string config_schedule_type[2] = {"in-order", "out-of-order"};
-    int config_ruu_size[6] = {0, 4, 8, 16, 32, 64};
-    int config_lsq_size[4] = {0, 4, 8, 16, 32};
+    int config_ruu_size[6] = {4,8,16,32,64,128};
+    int config_lsq_size[4] = {4,8,16,32};
     int config_memports[2] = {1,2};
-
-    // Cache parameters
+    
+    // cache params
     int config_dl1_sets[9] = {32,64,128,256,512,1024,2048,4096,8192};
     int config_dl1_ways[3] = {1,2,4};
     int config_il1_sets[9] = {32,64,128,256,512,1024,2048,4096,8192};
     int config_il1_ways[3] = {1,2,4};
 
-    // L2 Cache parameters
-    int config_ul2_sets[10] = {128,256,512,1024,2048,4096,8192,16384,32768};
+    // ul2 params
+    int config_ul2_sets[10] = {256,512,1024,2048,4096,8192,16384,32768,65536,131072};
     int config_ul2_blocksize[4] = {16,32,64,128};
     int config_ul2_ways[5] = {1,2,4,8,16};
 
-    // TLB parameters
-    int tlb_sets[5] = {4,8,16,32,64};
+    // tlb params
+    int config_tlb_sets[5] = {4,8,16,32,64};
     int config_dl1_lat[7] = {1,2,3,4,5,6,7};
     int config_il1_lat[7] = {1,2,3,4,5,6,7};
     int config_ul2_lat[9] = {5,6,7,8,9,10,11,12,13};
@@ -106,26 +106,26 @@ int validateConfiguration(std::string configuration){
     
     //decode
     int width = config_width[configurationDimsAsInts[0]];
-    int fetch_speed = config_fetch_speed[configurationInts[1]];
-    std::string sched_type = config_schedule_type[configurationInts[2]];
-    int ruu_size = config_ruu_size[configurationInts[3]];
-    int lsq_size = config_lsq_size[configurationInts[4]];
-    int memports = config_memports[configurationInts[5]];
+    int fetch_speed = config_fetch_speed[configurationDimsAsInts[1]];
+    std::string sched_type = config_schedule_type[configurationDimsAsInts[2]];
+    int ruu_size = config_ruu_size[configurationDimsAsInts[3]];
+    int lsq_size = config_lsq_size[configurationDimsAsInts[4]];
+    int memports = config_memports[configurationDimsAsInts[5]];
 
-    int dl1_sets = config_dl1_sets[configurationInts[6]];
-    int dl1_ways = config_dl1_ways[configurationInts[7]];
-    int il1_sets = config_il1_sets[configurationInts[8]];
-    int il1_ways = config_il1_ways[configurationInts[9]];
+    int dl1_sets = config_dl1_sets[configurationDimsAsInts[6]];
+    int dl1_ways = config_dl1_ways[configurationDimsAsInts[7]];
+    int il1_sets = config_il1_sets[configurationDimsAsInts[8]];
+    int il1_ways = config_il1_ways[configurationDimsAsInts[9]];
 
-    int ul2_sets = config_ul2_sets[configurationInts[10]];
-    int ul2_blocksize = config_ul2_blocksize[configurationInts[11]];
-    int ul2_ways = config_ul2_ways[configurationInts[12]];
+    int ul2_sets = config_ul2_sets[configurationDimsAsInts[10]];
+    int ul2_blocksize = config_ul2_blocksize[configurationDimsAsInts[11]];
+    int ul2_ways = config_ul2_ways[configurationDimsAsInts[12]];
 
-    int tlb_sets = tlb_sets[configurationInts[13]];
-    int dl1_lat = config_dl1_lat[configurationInts[14]];
-    int il1_lat = config_il1_lat[configurationInts[15]];
-    int ul2_lat = config_ul2_lat[configurationInts[16]];
-    std::string bpredictor = config_bpredictor[configurationInts[17]];
+    int tlb_sets = config_tlb_sets[configurationDimsAsInts[13]];
+    int dl1_lat = config_dl1_lat[configurationDimsAsInts[14]];
+    int il1_lat = config_il1_lat[configurationDimsAsInts[15]];
+    int ul2_lat = config_ul2_lat[configurationDimsAsInts[16]];
+    std::string bpredictor = config_bpredictor[configurationDimsAsInts[17]];
     
 
     // 
@@ -144,7 +144,7 @@ int validateConfiguration(std::string configuration){
 
     // rule 2    
     if (ul2_blocksize < 2 * il1_blocksize || ul2_blocksize > 128){{
-        return 0l
+        return 0;
     }}
     if (ul2_size < (il1_size + dl1_size)){
         return 0;
