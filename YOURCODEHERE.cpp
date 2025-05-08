@@ -189,11 +189,29 @@ std::string YourProposalFunction(
     int optimizeforED2AP
 ){
     /*
-    * REPLACE THE BELOW CODE WITH YOUR PROPOSAL FUNCTION
-    *
-    * The proposal function below is extremely unintelligent and
-    * will produce configurations that, while properly formatted, 
-    * violate specified project constraints
+    algorithm objective:
+    1. choose random config
+    2. check if valid, if not, choose diff
+
+    config rules:
+    1. EDP
+    fixed params: width = 1, speed = 2, in-order, perfect predictor
+    all other variables will be randomized
+    
+    2. EDP2
+    fixed params: width = 8, seed = 2, out of order, RUU size = 128, LSQ size = 32, Memport = 2, perfect predictor
+    all other variables are randomized
+
+    3. EDAP
+    fixed params: width = 1, speed = 2 , in-order, RUU size = 5, LSQ size = 4
+    random predictor except perfect
+    all other variables are randomized
+
+    4. ED2AP
+    fixed params: width = 8, speed = 2, out of order, memport = 2
+    predict: random except perfect
+    all other variables are randomized
+
     */    
   
     // produces an essentially random proposal
@@ -202,6 +220,24 @@ std::string YourProposalFunction(
         configuration[dim] = rand() % GLOB_dimensioncardinality[dim];
     }
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
     return compactConfiguration(configuration);
 }
 
