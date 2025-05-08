@@ -14,7 +14,7 @@
 #include "431project.h"
 
 
-int count = 0l
+int count = 0;
 
 //latency tables
 
@@ -104,6 +104,30 @@ int validateConfiguration(std::string configuration){
     int returnValue = 1;  // assume true, set 0 if otherwise
     extractConfiguration(configuration, configurationDimsAsInts); // Configuration parameters now available in array
     
+    //decode
+    int width = config_width[configurationDimsAsInts[0]];
+    int fetch_speed = config_fetch_speed[configurationInts[1]];
+    std::string sched_type = config_schedule_type[configurationInts[2]];
+    int ruu_size = config_ruu_size[configurationInts[3]];
+    int lsq_size = config_lsq_size[configurationInts[4]];
+    int memports = config_memports[configurationInts[5]];
+
+    int dl1_sets = config_dl1_sets[configurationInts[6]];
+    int dl1_ways = config_dl1_ways[configurationInts[7]];
+    int il1_sets = config_il1_sets[configurationInts[8]];
+    int il1_ways = config_il1_ways[configurationInts[9]];
+
+    int ul2_sets = config_ul2_sets[configurationInts[10]];
+    int ul2_blocksize = config_ul2_blocksize[configurationInts[11]];
+    int ul2_ways = config_ul2_ways[configurationInts[12]];
+
+    int tlb_sets = tlb_sets[configurationInts[13]];
+    int dl1_lat = config_dl1_lat[configurationInts[14]];
+    int il1_lat = config_il1_lat[configurationInts[15]];
+    int ul2_lat = config_ul2_lat[configurationInts[16]];
+    std::string bpredictor = config_bpredictor[configurationInts[17]];
+    
+
     // 
     // FIXME - YOUR VERIFICATION CODE HERE 
     // ...
