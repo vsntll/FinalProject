@@ -216,28 +216,55 @@ std::string YourProposalFunction(
   
     // produces an essentially random proposal
     int configuration[18];
-    for(int dim = 0; dim < 18; dim++){
-        configuration[dim] = rand() % GLOB_dimensioncardinality[dim];
-    }
+    do {
+        for(int dim = 0; dim < 18; dim++){
+            configuration[dim] = rand() % GLOB_dimensioncardinality[dim];
+        }
 
+        //EDP
+        if (optimizeforEDP) {
+            configuration[0] = 0; // width = 1
+            configuration[1] = 1; // speed = 2
+            configuration[2] = 0; // in-order
+            configuration[17] = 0; // perfect predictor
+        }
+        //ED2P
+        else if (optimizeforED2P) {
+            configuration[0] = 3; // width = 8
+            configuration[1] = 1; // speed = 2
+            configuration[2] = 1; // out-of-order
+            configuration[3] = 5; // RUU size = 128
+            configuration[4] = 3; // LSQ size = 32
+            configuration[5] = 1; // memport = 2
+            configuration[17] = 0; // perfect predictor
+        }
+        //EDAP
+        else if (optimizeforEDAP) {
+            configuration[0] = 0; // width = 1
+            configuration[1] = 1; // speed = 2
+            configuration[2] = 0; // in-order
+            configuration[3] = 0; // RUU size = 4
+            configuration[4] = 0; // LSQ size = 4
+            if (configuration[17] == 0) {
+                configuration[17] = 1; // random predictor except perfect
+            }
+        }
+        //ED2AP
+        else if (optimizeforED2AP) {
+            configuration[0] = 3; // width = 8
+            configuration[1] = 1; // speed = 2
+            configuration[2] = 1; // out-of-order
+            configuration[5] = 1; // memport = 2
+            if (configuration[17] == 0) {
+                configuration[17] = 1; // random predictor except perfect
+            }
+        }
+        // If no optimization is specified, return the baseline configuration
+        else {
+            return GLOB_baseline;
+        }
+    } while (validateConfiguration(compactConfiguration(configuration)) == 0);
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    
     return compactConfiguration(configuration);
 }
 
