@@ -132,6 +132,37 @@ int validateConfiguration(std::string configuration){
     // FIXME - YOUR VERIFICATION CODE HERE 
     // ...
 
+
+    //rule 1
+    int ifq_size = width * 8;
+    int il1_blocksize = ifq_size;
+    int dl1_blocksize = il1_blocksize;
+
+    int il1_size = il1_sets * il1_ways * il1_blocksize;
+    int dl1_size = dl1_sets * dl1_ways * dl1_blocksize;
+    int ul2_size = ul2_sets * ul2_ways * ul2_blocksize;
+
+    // rule 2    
+    if (ul2_blocksize < 2 * il1_blocksize || ul2_blocksize > 128){{
+        return 0l
+    }}
+    if (ul2_size < (il1_size + dl1_size)){
+        return 0;
+    }
+
+    //rule 3
+    int il1_lat_expected = l1_latency_table(il1_size / 1024, il1_ways);
+    int dl1_lat_expected = l1_latency_table(dl1_size / 1024, dl1_ways);
+    if (il1_lat != il1_lat_expected || dl1_lat != dl1_lat_expected){
+        return 0;
+    }
+
+    //rule 4
+    int ul2_lat_expected = ul2_latency_table(ul2_size / 1024, ul2_ways);
+    if (ul2_lat != ul2_lat_expected){
+        return 0;
+    }
+
     return returnValue;
 }
 
