@@ -68,22 +68,23 @@ int ul2_latency_table(int size_kb, int ways) {
  */
 int validateConfiguration(std::string configuration){
     // config params
+    
     int config_width[4] = {1,2,4,8};
-    int config_fetch_speed[2] = {1,2};
+    int config_fetch_speed[3] = {1,2,4};
     std::string config_schedule_type[2] = {"in-order", "out-of-order"};
     int config_ruu_size[6] = {4,8,16,32,64,128};
-    int config_lsq_size[4] = {4,8,16,32};
-    int config_memports[2] = {1,2};
+    int config_lsq_size[5] = {4,8,16,32,64};
+    int config_memports[3] = {1,2,4};
     
     // cache params
-    int config_dl1_sets[9] = {32,64,128,256,512,1024,2048,4096,8192};
-    int config_dl1_ways[3] = {1,2,4};
-    int config_il1_sets[9] = {32,64,128,256,512,1024,2048,4096,8192};
-    int config_il1_ways[3] = {1,2,4};
+    int config_dl1_sets[7] = {128,256,512,1024,2048,4096,8192};
+    int config_dl1_ways[5] = {1,2,4,8,16};
+    int config_il1_sets[7] = {128,256,512,1024,2048,4096,8192};
+    int config_il1_ways[5] = {1,2,4,8,16};
 
     // ul2 params
-    int config_ul2_sets[10] = {256,512,1024,2048,4096,8192,16384,32768,65536,131072};
-    int config_ul2_blocksize[4] = {16,32,64,128};
+    int config_ul2_sets[9] = {128,256,512,1024,2048,4096,8192,16384,32768};
+    int config_ul2_blocksize[7] = {16,32,64,128,256,512,1024};
     int config_ul2_ways[5] = {1,2,4,8,16};
 
     // tlb params
@@ -91,6 +92,15 @@ int validateConfiguration(std::string configuration){
     int config_dl1_lat[7] = {1,2,3,4,5,6,7};
     int config_il1_lat[7] = {1,2,3,4,5,6,7};
     int config_ul2_lat[9] = {5,6,7,8,9,10,11,12,13};
+
+
+
+
+
+
+    // int config_dl1_lat[7] = {1,2,3,4,5,6,7};
+    // int config_il1_lat[7] = {1,2,3,4,5,6,7};
+    // int config_ul2_lat[9] = {5,6,7,8,9,10,11,12,13};
     std::string config_bpredictor[6] = {"Perfect", "NotTaken", "Bimodal", "2 level GAp", "2 level PAg", "Combined"};
     
 
